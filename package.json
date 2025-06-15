@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "flowbite-react": "^0.11.7",
+    "mongoose": "^8.15.2",
     "next": "15.3.1",
     "react": "^19.0.0",
     "react-csv": "^2.2.2",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/mongoose": "^5.11.96",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-csv": "^1.1.10",

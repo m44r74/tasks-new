@@ -9,7 +9,7 @@ export default function TaskList() {
   return (
     <div className="space-y-4 flex gap-4">
       {tasks
-        .filter((task) => task.assignedTo.id === currentUser.id)
+        .filter((task) => task.assignedTo?.id === currentUser.id)
         .map((task) => (
           <TimerTaskCard key={task.id} task={task} />
         ))}

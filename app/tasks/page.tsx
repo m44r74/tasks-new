@@ -16,28 +16,42 @@ export default function Home() {
   const [newTaskText, setNewTaskText] = useState("");
 
   const { tasks, projects ,setTasks } = useStore();
+const handleNewTask = async () => {
+  if (!newTaskText.trim()) return;
 
-  const handleNewTask = () => {
-    if (!newTaskText.trim()) return;
-
-    const newTask: Task = {
-      id: String(taskIdCounter++),
-      projectId: project.id,
-      text: newTaskText,
-      assignedTo: null,
-      description: "",
-      dueDate: "",
-      priority: "",
-      status: "todo",
-      elapsedTime: 0,
-    };
-
-    setTasks((prev: Task[]) => [...prev, newTask]);
-    setNewTaskText("");
+  const newTask: Partial<Task> = {
+    projectId: project.id,
+    text: newTaskText,
+    assignedTo: null,
+    description: "",
+    dueDate: "",
+    priority: "średni",
+    status: "todo",
+    elapsedTime: 0,
   };
+
+  try {
+    const res = await fetch("/api/tasks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newTask),
+    });
+
+    if (!res.ok) throw new Error("Failed to save task");
+
+    const savedTask = await res.json();
+    setTasks((prev: Task[]) => [...prev, savedTask]); // now it’s real
+    setNewTaskText("");
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
   useEffect(() => {
     console.log(project);
+   
+
     
   }, [project]);
 
